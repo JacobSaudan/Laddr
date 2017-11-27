@@ -1,2 +1,3 @@
 # Laddr
-Laddr team repo
+## Setup Instructions
+- Do work on the develop branch
