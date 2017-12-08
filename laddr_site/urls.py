@@ -9,4 +9,10 @@ urlpatterns = [
     url(r'^teams/$', views.teams_page, name='teams'),
     url(r'^compete/$', views.compete_page, name='compete'),
     url(r'^profile/$', views.profile_page, name='profile'),
+    url(r'^store/$', views.store_page, name='store'),
+    url(r'^find_team/$', views.find_team, name='find_team'),
+    url(r'^articles/$', views.articles, name='articles'),
+    url(r'^events/$', views.events, name='events'),
+    url(r'^patch_notes/$', views.patch_notes, name='patch_notes'),
+    url(r'^login/$', views.login_page, name='login'),
 ]
