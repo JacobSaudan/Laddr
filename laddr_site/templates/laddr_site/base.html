@@ -1,0 +1,26 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'laddr_site/style.css' %}" />
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<div id="nav_bar">
+		<ul>
+			<li id="name">Laddr.io</li>
+			<li><a href="{% url 'laddr:home' %}">Home</a></li>
+			<li><a href="{% url 'laddr:teams' %}">Teams</a></li>
+			<li><a href="{% url 'laddr:compete' %}">Compete</a></li>
+			<li><a href="{% url 'laddr:profile' %}">Profile</a></li>
+			<li><a href="{% url 'laddr:store' %}">Store</a></li>
+			<li class="login"><a href="{% url 'laddr:login' %}">Log In</a></li>
+		</ul>
+	</div>
+
+</head>
+<body>
+	<div id="content">
+	{% block content %}
+	{% endblock %}
+	</div>
+</body>
+</html>

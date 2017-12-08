@@ -1,12 +1,15 @@
+{% extends 'laddr_site/base.html' %}
 <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
 </head>
 <body>
+	{% block content %}
 	<h1>Profile Page</h1>
 	<ul>
 		<li><a href="{% url 'laddr:home' %}">Home Page</a></li>
 	</ul>
+	{% endblock %}
 </body>
 </html>
