@@ -1,8 +1,13 @@
 body {
 	margin: 0;
 }
+
 #content {
 	margin: 8;
+}
+
+#nav_bar {
+	opacity: 0.9;
 }
 
 #nav_bar ul {

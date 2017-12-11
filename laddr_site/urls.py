@@ -14,5 +14,4 @@ urlpatterns = [
     url(r'^articles/$', views.articles, name='articles'),
     url(r'^events/$', views.events, name='events'),
     url(r'^patch_notes/$', views.patch_notes, name='patch_notes'),
-    url(r'^login/$', views.login_page, name='login'),
 ]

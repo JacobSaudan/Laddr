@@ -1,5 +1,5 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'laddr_site/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'laddr_site/css/style.css' %}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,7 @@
 			<li><a href="{% url 'laddr:compete' %}">Compete</a></li>
 			<li><a href="{% url 'laddr:profile' %}">Profile</a></li>
 			<li><a href="{% url 'laddr:store' %}">Store</a></li>
-			<li class="login"><a href="{% url 'laddr:login' %}">Log In</a></li>
+			<li class="login"><a href="{% url 'login' %}">Log In</a></li>
 		</ul>
 	</div>
 
