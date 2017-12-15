@@ -5,4 +5,4 @@ An online platform designed to match online gamers with teammates based on plays
 - Sync with remote repository
 - Create a virtual environment
 - Install requirements
-- Do work on the develop branch
+- Do work on branches off of develop
