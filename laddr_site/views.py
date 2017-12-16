@@ -18,10 +18,6 @@ def teams_page(request):
 	html = 'laddr_site/teams.html'
 	return render(request, html)
 
-def login_page(request):
-	html = 'laddr_site/login.html'
-	return render(request, html)
-
 def compete_page(request):
 	html = 'laddr_site/compete.html'
 	return render(request, html)

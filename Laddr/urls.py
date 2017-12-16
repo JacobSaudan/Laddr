@@ -18,8 +18,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^laddr/', include('laddr_site.urls')),
-    url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^', include('laddr_site.urls')),
+    url(r'^login/', include('authentication.urls')),
     url(r'^admin/', admin.site.urls),
 ]
