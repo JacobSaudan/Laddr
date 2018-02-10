@@ -8,11 +8,11 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    games = models.ManyToManyField(Game)
+    games = models.ManyToManyField('Game')
 
 class Team(models.Model):
 	name = models.CharField(max_length=128)
-	date_created = model.DateField()
+	date_created = models.DateField()
 	members = models.ManyToManyField(User, through='Membership')
 
 class Membership(models.Model):

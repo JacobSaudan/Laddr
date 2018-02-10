@@ -24,7 +24,8 @@ def compete_page(request):
 
 def profile_page(request):
 	html = 'laddr_site/profile.html'
-	return render(request, html)
+	context = {"user_name": request.user}
+	return render(request, html, context=context)
 
 def store_page(request):
 	html = 'laddr_site/store.html'
