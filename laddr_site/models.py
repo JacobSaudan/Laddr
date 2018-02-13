@@ -10,8 +10,12 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     games = models.ManyToManyField('Game')
 
+    def __str__(self):
+    	return self.user.username
+
 class Team(models.Model):
 	name = models.CharField(max_length=128)
+	game = models.ForeignKey('Game')
 	date_created = models.DateField()
 	members = models.ManyToManyField(User, through='Membership')
 
@@ -22,3 +26,6 @@ class Membership(models.Model):
 
 class Game(models.Model):
 	title = models.CharField(max_length=128)
+
+	def __str__(self):
+		return self.title
