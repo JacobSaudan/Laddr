@@ -7,11 +7,21 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    games = models.ManyToManyField('Game')
+    player = models.OneToOneField(User, on_delete=models.CASCADE)
+    games = models.ManyToManyField('Game', through='PlayerGame')
+    availability = models.ManyToManyField('Availability')
 
     def __str__(self):
-    	return self.user.username
+    	return self.player.username
+
+class Availability(models.Model):
+	game = models.ForeignKey('Game', on_delete=models.CASCADE)
+	start = models.DateTimeField()
+	end = models.DateTimeField()
+
+	def __str__(self):
+		date_format = "%A %H:%M"
+		return "%s: %s - %s" % (game.title, start.strftime(date_format), end.strftime(date_format))
 
 class Team(models.Model):
 	name = models.CharField(max_length=128)
@@ -22,11 +32,6 @@ class Team(models.Model):
 	def __str__(self):
 		return "%s : %s" % (self.name, self.game)
 
-class Membership(models.Model):
-    person = models.ForeignKey(User, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    date_joined = models.DateField()
-
 class Game(models.Model):
 	title = models.CharField(max_length=128)
 	team_size = models.IntegerField(null=True)
@@ -34,10 +39,35 @@ class Game(models.Model):
 	def __str__(self):
 		return self.title
 
-class Bout(models.Model):
+class Tournament_Game(models.Model):
 	team_1 = models.ForeignKey('Team', related_name='%(class)s_1')
 	team_2 = models.ForeignKey('Team', related_name='%(class)s_2')
-	date = models.DateField()
+	scheduled_date = models.DateTimeField(null=False, blank=False)
+
+	def __str__(self):
+		return "%s vs. %s - %s" % (team_1.name, team_2.name, scheduled_date.strftime("%m/%d/%y %H:%M"))
 
 	class Meta:
 		unique_together = (('team_1', 'team_2'),)
+
+
+class Membership(models.Model):
+    player = models.ForeignKey(User, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    date_joined = models.DateField()
+
+class PlayerGame(models.Model):
+	PLAYSTYLES = (
+		('Aggressive', 'Aggressive'),
+		('Conservative', 'Conservative'),
+		('Supportive', 'Supportive')
+	)
+	player = models.ForeignKey('Profile', on_delete=models.CASCADE)
+	game = models.ForeignKey('Game', on_delete=models.CASCADE)
+	playstyle = models.CharField(max_length=40, choices=PLAYSTYLES)
+
+	def __str__(self):
+		return "%s : %s" % (player.username, game.title)
+
+
+

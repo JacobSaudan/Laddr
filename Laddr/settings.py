@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'Laddr.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'laddr_mysql_db',
+        'NAME': 'laddr',
         'USER': 'laddr_admin',
         'PASSWORD': 'ladmin',
         'HOST': 'localhost',
