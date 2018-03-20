@@ -44,7 +44,9 @@ body {
 	padding-top: 8px;
 }
 
-#nav_bar li.login {
+#nav_bar li.login,
+#nav_bar li.signup,
+#nav_bar li.logout {
 	float: right;
 }
 

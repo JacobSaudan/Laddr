@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -30,3 +31,9 @@ def login_page(request):
 
 	html = 'authentication/login.html'
 	return render(request, html)
+
+def sign_up(request):
+	return HttpResponse("Sign up beech")
+
+def log_out(request):
+	return HttpResponse("Log out beach")
