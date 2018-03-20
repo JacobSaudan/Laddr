@@ -7,12 +7,13 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Profile(models.Model):
-    player = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     games = models.ManyToManyField('Game', through='PlayerGame')
     availability = models.ManyToManyField('Availability')
 
+
     def __str__(self):
-    	return self.player.username
+    	return self.user.username
 
 class Availability(models.Model):
 	game = models.ForeignKey('Game', on_delete=models.CASCADE)
@@ -43,6 +44,8 @@ class Tournament_Game(models.Model):
 	team_1 = models.ForeignKey('Team', related_name='%(class)s_1')
 	team_2 = models.ForeignKey('Team', related_name='%(class)s_2')
 	scheduled_date = models.DateTimeField(null=False, blank=False)
+	completed = models.BooleanField(default=False)
+	tournament = models.ForeignKey('Tournament', null=True)
 
 	def __str__(self):
 		return "%s vs. %s - %s" % (team_1.name, team_2.name, scheduled_date.strftime("%m/%d/%y %H:%M"))
@@ -60,14 +63,20 @@ class PlayerGame(models.Model):
 	PLAYSTYLES = (
 		('Aggressive', 'Aggressive'),
 		('Conservative', 'Conservative'),
-		('Supportive', 'Supportive')
+		('Supporting', 'Supporting')
 	)
-	player = models.ForeignKey('Profile', on_delete=models.CASCADE)
+	user_profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
 	game = models.ForeignKey('Game', on_delete=models.CASCADE)
 	playstyle = models.CharField(max_length=40, choices=PLAYSTYLES)
 
+
 	def __str__(self):
-		return "%s : %s" % (player.username, game.title)
+		return "%s : %s" % (self.user_profile.user.username, self.game.title)
+
+class Tournament(models.Model):
+	game = models.ForeignKey('Game')
+	Teams = models.ManyToManyField('Team')
+
 
 
 
