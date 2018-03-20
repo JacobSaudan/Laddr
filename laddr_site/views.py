@@ -24,7 +24,14 @@ def compete_page(request):
 
 def profile_page(request):
 	html = 'laddr_site/profile.html'
-	return render(request, html)
+	user = request.user
+	context = {
+		"user_name": user,
+		"tournaments": user.tournament_set.all(),
+		"games": user.game_set.all(),
+		"teams": user.team_set.all()
+	}
+	return render(request, html, context=context)
 
 def store_page(request):
 	html = 'laddr_site/store.html'
