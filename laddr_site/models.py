@@ -26,7 +26,7 @@ class Availability(models.Model):
 
 class Team(models.Model):
 	name = models.CharField(max_length=128)
-	game = models.ForeignKey('Game')
+	game = models.ForeignKey('Game', on_delete=models.CASCADE)
 	date_created = models.DateField()
 	members = models.ManyToManyField(User, through='Membership')
 
@@ -41,11 +41,11 @@ class Game(models.Model):
 		return self.title
 
 class Tournament_Game(models.Model):
-	team_1 = models.ForeignKey('Team', related_name='%(class)s_1')
-	team_2 = models.ForeignKey('Team', related_name='%(class)s_2')
+	team_1 = models.ForeignKey('Team', related_name='%(class)s_1', on_delete=models.CASCADE)
+	team_2 = models.ForeignKey('Team', related_name='%(class)s_2', on_delete=models.CASCADE)
 	scheduled_date = models.DateTimeField(null=False, blank=False)
 	completed = models.BooleanField(default=False)
-	tournament = models.ForeignKey('Tournament', null=True)
+	tournament = models.ForeignKey('Tournament', null=True, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return "%s vs. %s - %s" % (team_1.name, team_2.name, scheduled_date.strftime("%m/%d/%y %H:%M"))
@@ -74,7 +74,7 @@ class PlayerGame(models.Model):
 		return "%s : %s" % (self.user_profile.user.username, self.game.title)
 
 class Tournament(models.Model):
-	game = models.ForeignKey('Game')
+	game = models.ForeignKey('Game', on_delete=models.CASCADE)
 	Teams = models.ManyToManyField('Team')
 
 
