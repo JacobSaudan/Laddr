@@ -41,6 +41,8 @@ Creating an environment is outlined [here](http://pymote.readthedocs.io/en/lates
 
 #### Postgres
 Steps for installing postgres can be found online [here](https://www.postgresql.org/download/windows/).
+
+You will need to create a database and user/password that are matched in `settings_local.py`
 ### Installing
 
 Once prerequisites are installed, you will want to clone the repository locally.
