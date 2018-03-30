@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+    volumes:
+      - ./data-volume/:/var/lib/mysql
+  web:
+    image: migrated
+    command: runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    environment:
+      APP_ENV: docker
+    depends_on:
+      - migration
+    ports:
+      - "8001:8000"
+  migration:
+    build: .
+    image: migrated
+    command: migrate
+    volumes:
+      - .:/code
+    environment:
+      APP_ENV: docker
+    depends_on:
+      - db
