@@ -68,7 +68,10 @@ class PlayerGame(models.Model):
 	user_profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
 	game = models.ForeignKey('Game', on_delete=models.CASCADE)
 	playstyle = models.CharField(max_length=40, choices=PLAYSTYLES)
+	is_favorite = models.BooleanField(default=False)
 
+	class Meta:
+		unique_together = (('user_profile', 'is_favorite'),) # A player can only have one favorite game
 
 	def __str__(self):
 		return "%s : %s" % (self.user_profile.user.username, self.game.title)
@@ -87,6 +90,9 @@ class NewsBlurb(models.Model):
 	date_removed = models.DateField()
 	active = models.BooleanField(default=False)
 	in_rotation = models.BooleanField(default=False)
+	is_primary = models.BooleanField(default=False) # Marks Large primary card on landing
+
+
 
 
 
