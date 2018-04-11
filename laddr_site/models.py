@@ -3,17 +3,31 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from .timezones import TIMEZONE_CHOICES
 
 # Create your models here.
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     games = models.ManyToManyField('Game', through='PlayerGame')
-    availability = models.ManyToManyField('Availability')
-
+    timezones = models.CharField(max_length=40, default='Etc/UTC', choices=TIMEZONE_CHOICES)
 
     def __str__(self):
     	return self.user.username
+
+class Membership(models.Model):
+    player = models.ForeignKey(User, on_delete=models.CASCADE)
+    team = models.ForeignKey('Team', on_delete=models.CASCADE)
+    date_joined = models.DateField()
+
+class Team(models.Model):
+	name = models.CharField(max_length=128)
+	game = models.ForeignKey('Game', on_delete=models.CASCADE)
+	date_created = models.DateField()
+	members = models.ManyToManyField(User, through='Membership')
+
+	def __str__(self):
+		return "%s : %s" % (self.name, self.game)
 
 class Availability(models.Model):
 	game = models.ForeignKey('Game', on_delete=models.CASCADE)
@@ -24,14 +38,7 @@ class Availability(models.Model):
 		date_format = "%A %H:%M"
 		return "%s: %s - %s" % (game.title, start.strftime(date_format), end.strftime(date_format))
 
-class Team(models.Model):
-	name = models.CharField(max_length=128)
-	game = models.ForeignKey('Game', on_delete=models.CASCADE)
-	date_created = models.DateField()
-	members = models.ManyToManyField(User, through='Membership')
 
-	def __str__(self):
-		return "%s : %s" % (self.name, self.game)
 
 class Game(models.Model):
 	title = models.CharField(max_length=128)
@@ -54,21 +61,33 @@ class Tournament_Game(models.Model):
 		unique_together = (('team_1', 'team_2'),)
 
 
-class Membership(models.Model):
-    player = models.ForeignKey(User, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    date_joined = models.DateField()
-
 class PlayerGame(models.Model):
 	PLAYSTYLES = (
 		('Aggressive', 'Aggressive'),
 		('Conservative', 'Conservative'),
 		('Supporting', 'Supporting')
 	)
+	AVAILABILITIES = (
+		('Morning', 'Morning'),
+		('Afternoon', 'Afternoon'),
+		('Everning', 'Everning'),
+		('Late Night', 'Late Night')
+	)
+	WEEKDAYS = (
+		('Monday', 'Monday'),
+		('Tuesday', 'Tuesday'),
+		('Wednesday', 'Wednesday'),
+		('Thursday', 'Thursday'),
+		('Friday', 'Friday'),
+		('Saturday', 'Saturday'),
+		('Sunday', 'Sunday'),
+	)
 	user_profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
 	game = models.ForeignKey('Game', on_delete=models.CASCADE)
 	playstyle = models.CharField(max_length=40, choices=PLAYSTYLES)
 	is_favorite = models.BooleanField(default=False)
+	availability_time = models.CharField(max_length=40, choices=AVAILABILITIES)
+	availability_day = models.CharField(max_length=10, choices=WEEKDAYS)
 
 	class Meta:
 		unique_together = (('user_profile', 'is_favorite'),) # A player can only have one favorite game
