@@ -77,6 +77,16 @@ class Tournament(models.Model):
 	game = models.ForeignKey('Game', on_delete=models.CASCADE)
 	Teams = models.ManyToManyField('Team')
 
+class NewsBlurb(models.Model):
+	
+	# A model for landing/home page cards
+	
+	text = models.TextField(max_length=500)
+	date_created = models.DateField()
+	date_posted = models.DateField()
+	date_removed = models.DateField()
+	active = models.BooleanField(default=False)
+	in_rotation = models.BooleanField(default=False)
 
 
 
