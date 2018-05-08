@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from authentication.forms import UserForm
 
 # Create your views here.
 
@@ -33,7 +34,23 @@ def login_page(request):
 	return render(request, html)
 
 def sign_up(request):
-	return HttpResponse("Sign up beech")
+
+	registered = False
+
+	if request.method =="POST":
+		user_form = UserForm(data=request.POST)
+		if user_form.is_valid():
+			user = user_form.save()
+			user.set_password(user.password)
+			user.save()
+		else:
+			print(user_form.errors)
+	else:
+		user_form=UserForm()
+	#return HttpResponse("Sign up beech")
+	html= 'authentication/signup.html'
+	return render(request,html,
+	{'user_form':user_form, 'registered':registered})
 
 def log_out(request):
 	return HttpResponse("Log out beach")
