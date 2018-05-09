@@ -2,4 +2,6 @@
 *.DS_Store
 *.pyc
 
+data-volume
+.env
 Laddr/settings_local.py

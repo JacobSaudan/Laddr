@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+    volumes:
+      - ./data-volume/postgres/:/var/lib/postgresql/data
+  web:
+    image: migrated
+    command: runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    environment:
+      APP_ENV: docker
+    depends_on:
+      - migration
+    ports:
+      - "8001:8000"
+  migration:
+    build: .
+    image: migrated
+    command: migrate
+    volumes:
+      - .:/code
+    environment:
+      APP_ENV: docker
+    depends_on:
+      - db
