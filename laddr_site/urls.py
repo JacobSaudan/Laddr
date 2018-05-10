@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^articles/$', views.articles, name='articles'),
     url(r'^events/$', views.events, name='events'),
     url(r'^player_card/$', views.player_card_data, name='player_card'),
+    url(r'^get_profile/$', views.get_profile_information, name='get_profile_information')
 ]
