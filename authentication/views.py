@@ -45,7 +45,11 @@ def sign_up(request):
 			username = user_form.cleaned_data.get('username')
 			user = authenticate(username=username, passowrd=raw_password)
 			login(request,user)
+<<<<<<< HEAD
 			return HttpResponseRedirect("/")
+=======
+			return render(HttpResponseRedirect('/'))
+>>>>>>> 995499780c2f452da0393c81f377112c0f4ff57f
 		else:
 			print(user_form.errors)
 	else:
