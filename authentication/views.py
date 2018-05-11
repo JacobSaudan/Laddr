@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from __future__ import unicode_literals 
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from authentication.forms import SignupForm
 
 # Create your views here.
@@ -45,7 +45,7 @@ def sign_up(request):
 			username = user_form.cleaned_data.get('username')
 			user = authenticate(username=username, passowrd=raw_password)
 			login(request,user)
-			# Not currently working: return redirect(sign_up)
+			return HttpResponseRedirect("/")
 		else:
 			print(user_form.errors)
 	else:
