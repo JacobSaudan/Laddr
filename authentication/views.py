@@ -52,8 +52,10 @@ def sign_up(request):
 		user_form=SignupForm()
 	#return HttpResponse("Sign up beech")
 	html= 'authentication/signup.html'
-	return render(request,html,
-	{'form':user_form, 'registered':registered})
+	return render(request,html,{'form':user_form, 'registered':registered})
 
 def log_out(request):
-	return HttpResponse("Log out beach")
+	logout(request)
+	html= 'authentication/logout.html'
+	return render(request,html)
+	
