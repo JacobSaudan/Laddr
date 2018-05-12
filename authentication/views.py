@@ -45,7 +45,7 @@ def sign_up(request):
 			username = user_form.cleaned_data.get('username')
 			user = authenticate(username=username, passowrd=raw_password)
 			login(request,user)
-			return render(HttpResponseRedirect('/'))
+			return (HttpResponseRedirect('/'))
 		else:
 			print(user_form.errors)
 	else:
