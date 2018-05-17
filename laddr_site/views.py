@@ -30,9 +30,6 @@ def profile_page(request):
 	user = request.user
 	context = {
 		"user_name": user,
-		"tournaments": user.tournament_set.all(),
-		"games": user.game_set.all(),
-		"teams": user.team_set.all()
 	}
 	return render(request, html, context=context)
 

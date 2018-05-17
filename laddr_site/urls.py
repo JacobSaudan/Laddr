@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^profile/$', views.profile_page, name='profile'),
     url(r'^store/$', views.store_page, name='store'),
     url(r'^find_team/$', views.find_team, name='find_team'),
+    url(r'^patch_notes/?', views.patch_notes, name='patch_notes'),
     url(r'^articles/$', views.articles, name='articles'),
     url(r'^events/$', views.events, name='events'),
     url(r'^player_card/$', views.player_card_data, name='player_card'),
