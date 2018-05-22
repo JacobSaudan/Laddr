@@ -1,4 +1,4 @@
-{% load static %}
+ {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'laddr_site/css/style.css' %}" />
 {% block css %}
 {% endblock %}
@@ -7,6 +7,7 @@
 <head>
 	<title></title>
 	<div id="nav_bar">
+		{% if user.is_authenticated %}
 		<ul>
 			<li id="name">Laddr.io</li>
 			<li><a href="{% url 'laddr:home' %}">Home</a></li>
@@ -14,9 +15,21 @@
 			<li><a href="{% url 'laddr:compete' %}">Compete</a></li>
 			<li><a href="{% url 'laddr:profile' %}">Profile</a></li>
 			<li><a href="{% url 'laddr:store' %}">Store</a></li>
-			<li class="login"><a href="{% url 'authentication:login' %}">Log In</a></li>
-			<li class="signup"><a href="{% url 'authentication:signup' %}">Sign Up</a></li>
+			<li class="logout"><a href="{% url 'authentication:logout' %}">Log Out</a></li>
+			<li style="float:right;"><a>Welcome {{ user.username }}</a></li>
 		</ul>
+		{% else %}
+		<ul>
+				<li id="name">Laddr.io</li>
+				<li><a href="{% url 'laddr:home' %}">Home</a></li>
+				<li><a href="{% url 'laddr:teams' %}">Teams</a></li>
+				<li><a href="{% url 'laddr:compete' %}">Compete</a></li>
+				<li><a href="{% url 'laddr:profile' %}">Profile</a></li>
+				<li><a href="{% url 'laddr:store' %}">Store</a></li>
+				<li class="login"><a href="{% url 'authentication:login' %}">Log In</a></li>
+				<li class="signup"><a href="{% url 'authentication:signup' %}">Sign Up</a></li>
+			</ul>
+		{% endif %}
 	</div>
 
 </head>

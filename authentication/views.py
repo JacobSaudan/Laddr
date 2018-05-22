@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from __future__ import unicode_literals 
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
@@ -52,8 +52,10 @@ def sign_up(request):
 		user_form=SignupForm()
 	#return HttpResponse("Sign up beech")
 	html= 'authentication/signup.html'
-	return render(request,html,
-	{'form':user_form, 'registered':registered})
+	return render(request,html,{'form':user_form, 'registered':registered})
 
 def log_out(request):
-	return HttpResponse("Log out beach")
+	logout(request)
+	html= 'authentication/logout.html'
+	return render(request,html)
+	
