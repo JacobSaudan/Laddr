@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.contrib.auth.models import User
 from .timezones import TIMEZONE_CHOICES
+from django.utils.timezone import now
 
 # Create your models here.
 
@@ -87,6 +88,8 @@ class Profile(models.Model):
     preferred_johnny_rank = models.IntegerField(default=0)
     preferred_spike_rank = models.IntegerField(default=0)
     preferred_timmy_rank = models.IntegerField(default=0)
+    num_profiles_ranked = models.IntegerField(default=0)
+    deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -131,6 +134,13 @@ class NewsBlurb(models.Model):
     active = models.BooleanField(default=False)
     in_rotation = models.BooleanField(default=False)
     is_primary = models.BooleanField(default=False) # Marks Large primary card on landing
+
+class PsychePreference(models.Model):
+    user = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    potential_match = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    date_created = models.DateField(default=now)
+    accepted = models.BooleanField(default=False)
+
 
 
 

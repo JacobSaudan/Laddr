@@ -4,7 +4,9 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 from .models import *
+from .utility import update_psyche
 
 
 # Create your views here.
@@ -69,5 +71,20 @@ def player_card_data(request):
 		'header_color': profile.favorite_color,
 	}
 	return JsonResponse(player_card_data)
+
+def add_player_preference(request):
+	primary_user_id = request.data.get('primary_user_id')
+	comparison_user_id = request.data.get('comparison_user_id')
+	accepted = request.data.get('accept')
+	primary_profile = Profile.objects.get(user_id=primary_user_id)
+	comparison_profile = Profile.objects.get(user_id=comparison_user_id)
+	ps = PsychePreference.create(
+		user=primary_profile,
+		potential_match=comparison_profile,
+		date_created=now(),
+		accepted=accepted,
+	)
+	ps.save()
+	update_psyche(primary_profile)
 
 
