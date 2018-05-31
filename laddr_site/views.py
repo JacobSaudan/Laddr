@@ -57,6 +57,11 @@ def patch_notes(request):
 
 def player_card_data(request):
 	user_id = request.GET.get('user_id', 1)
+	player_card_data = get_player_card(user_id)
+	return JsonResponse(player_card_data)
+
+def get_player_card(player_id):
+	user_id = request.GET.get('user_id', 1)
 	user = User.objects.get(id=user_id)
 	profile = Profile.objects.get(user=user)
 	player_card_data = {
@@ -70,7 +75,15 @@ def player_card_data(request):
 		'psyche': profile.get_psyche(),
 		'header_color': profile.favorite_color,
 	}
-	return JsonResponse(player_card_data)
+	return player_card_data
+
+def multiple_player_cards(request):
+	ids = request.data.get('ids', [])
+	pcds = []
+	for id in ids:
+		pcds.append(get_player_card(id))
+	return JsonResponse(pcds)
+
 
 def add_player_preference(request):
 	primary_user_id = request.data.get('primary_user_id')
