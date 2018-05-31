@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.contrib.auth.models import User
-from django.utils.timezone import now
 from .models import *
 from .utility import update_psyche
+from django.contrib.auth.models import User
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
+from django.utils.timezone import now
 
 
 # Create your views here.
