@@ -2,9 +2,10 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from .models import *
+from .forms import ProfileForm
 
 
 # Create your views here.
@@ -69,5 +70,15 @@ def player_card_data(request):
 		'header_color': profile.favorite_color,
 	}
 	return JsonResponse(player_card_data)
+
+def get_profile_information(request):
+	if request.method == "POST":
+		form = ProfileForm(request.POST)
+		if form.is_valid():
+			return HttpResponseRedirect('/')
+	else:
+		form = ProfileForm()
+	
+	return render(request, 'laddr_site/get_profile.html', {'form': form})
 
 
