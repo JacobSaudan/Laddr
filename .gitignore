@@ -6,4 +6,5 @@
 
 data-volume
 .env
+.py*
 Laddr/settings_local.py
