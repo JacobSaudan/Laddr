@@ -82,6 +82,7 @@ class Profile(models.Model):
         }
     )
     rank = models.CharField(max_length=15, blank=False, null=True)
+    is_real = models.BooleanField(default=True)
 
     johnny_rank = models.IntegerField(default=0)
     spike_rank = models.IntegerField(default=0)
@@ -111,12 +112,13 @@ class Membership(models.Model):
 
 
 class Team(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
     date_created = models.DateField()
     members = models.ManyToManyField(User, through="Membership")
+    is_real = models.BooleanField(default=True)
 
     def __str__(self):
-        return "%s : %s" % (self.name)
+        return self.name
 
 
 class Availability(models.Model):
