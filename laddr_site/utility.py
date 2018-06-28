@@ -58,7 +58,20 @@ def get_player_card(player_id):
 
 def get_team_member_ids(team_id):
     if len(Team.objects.filter(id=team_id)) == 0:
-        return {"success": False, "details": None, "error": "No team with id: {0}".format(team_id)}
+        return []
     team = Team.objects.get(id=team_id)
     member_ids = [x.id for x in team.members.all()]
     return member_ids
+
+def get_team_info(team_id):
+    if len(Team.objects.filter(id=team_id)) == 0:
+        return {}
+    team = Team.objects.get(id=team_id)
+    return {
+        "name": team.name,
+        "date_created": team.date_created,
+        # record
+        # next match
+        # rank
+    }
+
