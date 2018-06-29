@@ -39,3 +39,39 @@ def update_average(prev_avg, prev_n, new_value):
     if prev_avg == None:
         return new_value
     return ((prev_avg * prev_n) + new_value) / (prev_n + 1)
+
+def get_player_card(player_id):
+    user = User.objects.get(id=player_id)
+    profile = Profile.objects.get(user=user)
+    player_card_data = {
+        'bio': profile.bio,
+        'header_color': profile.favorite_color,
+        'psyche': profile.get_psyche(),
+        'rank': profile.rank,
+        'role': profile.role,
+        'server': profile.lol_server,
+        'summoner_name': profile.summoner_name,
+        'top_champions': profile.top_champions,
+        'user_name': user.username,
+    }
+    return player_card_data
+
+def get_team_member_ids(team_id):
+    if len(Team.objects.filter(id=team_id)) == 0:
+        return []
+    team = Team.objects.get(id=team_id)
+    member_ids = [x.id for x in team.members.all()]
+    return member_ids
+
+def get_team_info(team_id):
+    if len(Team.objects.filter(id=team_id)) == 0:
+        return {}
+    team = Team.objects.get(id=team_id)
+    return {
+        "name": team.name,
+        "date_created": team.date_created,
+        # record
+        # next match
+        # rank
+    }
+
