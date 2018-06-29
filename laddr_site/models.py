@@ -146,12 +146,7 @@ class NewsBlurb(models.Model):
 
 
 class PsychePreference(models.Model):
-<<<<<<< HEAD
     user = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="psychepreference_user")
     potential_match = models.ForeignKey("Profile", on_delete=models.CASCADE)
-=======
-    user = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name='%(class)s_psyche_profile')
-    potential_match = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name='%(class)s_potential_match')
->>>>>>> 76a63c8bd0ad961b44d9a8262a25e86c77bf1a24
     date_created = models.DateField(default=now)
     accepted = models.BooleanField(default=False)
