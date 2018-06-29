@@ -1,5 +1,6 @@
 from laddr_site.models import *
 from django.utils.timezone import now
+from django.contrib.auth.models import User
 
 
 def create_test_users(n):

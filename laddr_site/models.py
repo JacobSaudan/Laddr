@@ -61,7 +61,7 @@ class Profile(models.Model):
         max_length=10, blank=False, choices=LOL_SERVERS, default="NA"
     )
     timezones = models.CharField(
-        max_length=40, default="Etc/UTC", choices=TIMEZONE_CHOICES
+        max_length=50, default="Etc/UTC", choices=TIMEZONE_CHOICES
     )
     playstyle = models.CharField(
         max_length=40, choices=PLAYSTYLES, default="Conservative"
@@ -146,7 +146,7 @@ class NewsBlurb(models.Model):
 
 
 class PsychePreference(models.Model):
-    user = models.ForeignKey("Profile", on_delete=models.CASCADE)
+    user = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="psychepreference_user")
     potential_match = models.ForeignKey("Profile", on_delete=models.CASCADE)
     date_created = models.DateField(default=now)
     accepted = models.BooleanField(default=False)
