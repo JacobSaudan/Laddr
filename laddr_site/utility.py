@@ -53,6 +53,7 @@ def get_player_card(player_id):
         'summoner_name': profile.summoner_name,
         'top_champions': profile.top_champions,
         'user_name': user.username,
+        'availability': user.availability
     }
     return player_card_data
 

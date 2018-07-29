@@ -81,7 +81,7 @@ class Profile(models.Model):
             "Sunday": False,
         }
     )
-    rank = models.CharField(max_length=15, blank=False, null=True)
+    rank = models.CharField(max_length=15, choices=RANKS, blank=False, null=True)
     is_real = models.BooleanField(default=True)
 
     johnny_rank = models.IntegerField(default=0)
@@ -91,7 +91,6 @@ class Profile(models.Model):
     preferred_spike_rank = models.IntegerField(default=0)
     preferred_timmy_rank = models.IntegerField(default=0)
     num_profiles_ranked = models.IntegerField(default=0)
-    deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
