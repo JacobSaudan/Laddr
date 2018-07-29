@@ -61,7 +61,7 @@ class Profile(models.Model):
         max_length=10, blank=False, choices=LOL_SERVERS, default="NA"
     )
     timezones = models.CharField(
-        max_length=40, default="Etc/UTC", choices=TIMEZONE_CHOICES
+        max_length=50, default="Etc/UTC", choices=TIMEZONE_CHOICES
     )
     playstyle = models.CharField(
         max_length=40, choices=PLAYSTYLES, default="Conservative"
@@ -81,7 +81,7 @@ class Profile(models.Model):
             "Sunday": False,
         }
     )
-    rank = models.CharField(max_length=15, blank=False, null=True)
+    rank = models.CharField(max_length=15, choices=RANKS, blank=False, null=True)
     is_real = models.BooleanField(default=True)
 
     johnny_rank = models.IntegerField(default=0)
@@ -91,7 +91,6 @@ class Profile(models.Model):
     preferred_spike_rank = models.IntegerField(default=0)
     preferred_timmy_rank = models.IntegerField(default=0)
     num_profiles_ranked = models.IntegerField(default=0)
-    deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -146,7 +145,7 @@ class NewsBlurb(models.Model):
 
 
 class PsychePreference(models.Model):
-    user = models.ForeignKey("Profile", on_delete=models.CASCADE)
+    user = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="psychepreference_user")
     potential_match = models.ForeignKey("Profile", on_delete=models.CASCADE)
     date_created = models.DateField(default=now)
     accepted = models.BooleanField(default=False)
